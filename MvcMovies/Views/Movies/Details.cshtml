@@ -1,0 +1,86 @@
+﻿@model MvcMovies.Models.Movie
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+</div>
+
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.MovieId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+<br />
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Review</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+       
+            @foreach (var review in Model.Reviews)
+            {
+                <tr>
+                    <td>@review.Name</td>
+                    <td>@review.Comment</td>
+                    <td>@review.dateTime</td>
+                </tr>
+            }
+
+        
+    </tbody>
+</table>
+
+
+<form asp-controller="Movies" asp-action="AddReview" method="post">
+
+    <div class="form-group ">
+        <label for="Name">Name</label>
+        <input style="width:30%" type="text" name="Name" class="form-control" id="Name" placeholder="Name">
+    </div>
+    <input type="hidden" name="Date" class="form-control" id="date" placeholder="Date">
+
+    <input type="hidden" name="MovieId" value="@Model.MovieId" />
+    <div class="form-group">
+        <label for="review">Review</label>
+        <textarea style="width:30%;height:50%" type="text" class="form-control" name="Comment" id="review" placeholder="review"></textarea>
+
+        <input type="submit" style="margin-top:10px" class="btn" value="Send review" />
+    </div>
+</form>
